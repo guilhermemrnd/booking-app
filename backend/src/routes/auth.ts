@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
-import jwt from "jsonwebtoken";
 import { check, validationResult } from "express-validator";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 import User from "../models/user";
 
@@ -9,11 +10,9 @@ const router = express.Router();
 const ONE_DAY = 24 * 60 * 60 * 1000;
 
 router.post(
-  "/register",
+  "/login",
   [
-    check("firstName", "First name is required").isString(),
-    check("lastName", "Last name is required").isString(),
-    check("email", "Email is required").isString(),
+    check("email", "Email is required").isEmail(),
     check("password", "Password must have at least 6 characters").isLength({
       min: 6,
     }),
@@ -25,15 +24,20 @@ router.post(
     }
 
     try {
-      let user = await User.findOne({ email: req.body.email });
+      const { email, password } = req.body;
 
-      if (user) return res.status(400).json({ message: "User already exists" });
+      const user = await User.findOne({ email });
+      if (!user) {
+        return res.status(400).json({ message: "Invalid credentials" });
+      }
 
-      user = new User(req.body);
-      await user.save();
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return res.status(400).json({ message: "Invalid credentials" });
+      }
 
       const token = jwt.sign(
-        { userId: user.id },
+        { userId: user._id },
         process.env.JWT_SECRET_KEY as string,
         { expiresIn: "1d" }
       );
@@ -44,10 +48,10 @@ router.post(
         maxAge: ONE_DAY,
       });
 
-      return res.send(200);
+      return res.status(200).json({ userId: user._id });
     } catch (err) {
       console.log(err);
-      res.status(500).send({ message: "Something went wrong" });
+      res.status(500).json({ message: "Something went wrong" });
     }
   }
 );
