@@ -1,7 +1,8 @@
 import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
 import Layout from "./layouts/Layout";
-import Register from "./layouts/Register";
+import Register from "./pages/Register";
+import SignIn from "./pages/SignIn";
 
 export default function App() {
   return (
@@ -14,6 +15,14 @@ export default function App() {
           element={
             <Layout>
               <Register />
+            </Layout>
+          }
+        />
+        <Route
+          path="/sign-in"
+          element={
+            <Layout>
+              <SignIn />
             </Layout>
           }
         />

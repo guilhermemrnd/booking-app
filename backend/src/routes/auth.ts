@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 import User from "../models/user";
-import verifyToken from './../middleware/auth';
+import verifyToken from "./../middleware/auth";
 
 const router = express.Router();
 
@@ -64,5 +64,10 @@ router.get(
     return res.status(200).send({ userId: req.userId });
   }
 );
+
+router.post("/logout", async (req: Request, res: Response) => {
+  res.cookie("auth_token", "", { expires: new Date(0) });
+  return res.send();
+});
 
 export default router;
