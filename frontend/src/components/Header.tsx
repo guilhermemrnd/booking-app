@@ -4,7 +4,7 @@ export default function Header() {
   return (
     <div className="bg-blue-800 py-6">
       <div className="container mx-auto flex justify-between">
-        <span className="text-3xl font-bold tracking-tight text-white">
+        <span className="text-2xl md:text-3xl font-bold tracking-tight text-white">
           <Link to="/">BookingClone.com</Link>
         </span>
         <span className="flex space-x-2">

@@ -44,7 +44,7 @@ router.post(
         maxAge: ONE_DAY,
       });
 
-      return res.send(200);
+      return res.send(200).send({ message: "User registered OK" })
     } catch (err) {
       console.log(err);
       res.status(500).send({ message: "Something went wrong" });
