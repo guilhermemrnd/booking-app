@@ -60,3 +60,17 @@ export async function signOut() {
     throw new Error("Failed to sign out");
   }
 }
+
+export async function saveMyHotel(formData: FormData) {
+  const response = await fetch(`${API_BASE_URL}/api/my-hotels`, {
+    method: "POST",
+    credentials: "include",
+    body: formData,
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to add the hotel");
+  }
+
+  return await response.json();
+}
