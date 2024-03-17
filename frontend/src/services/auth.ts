@@ -1,9 +1,9 @@
-import { RegisterFormData } from "./pages/Register";
-import { SignInFormData } from "./pages/SignIn";
+import { RegisterFormData } from "../pages/Register";
+import { SignInFormData } from "../pages/SignIn";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
-export async function register(formData: RegisterFormData) {
+async function register(formData: RegisterFormData) {
   const response = await fetch(`${API_BASE_URL}/api/users/register`, {
     method: "POST",
     credentials: "include",
@@ -20,7 +20,7 @@ export async function register(formData: RegisterFormData) {
   }
 }
 
-export async function singIn(formData: SignInFormData) {
+async function signIn(formData: SignInFormData) {
   const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
     method: "POST",
     credentials: "include",
@@ -38,7 +38,7 @@ export async function singIn(formData: SignInFormData) {
   return body;
 }
 
-export async function validateToken() {
+async function validateToken() {
   const response = await fetch(`${API_BASE_URL}/api/auth/validate-token`, {
     credentials: "include",
   });
@@ -50,7 +50,7 @@ export async function validateToken() {
   return response.json();
 }
 
-export async function signOut() {
+async function signOut() {
   const response = await fetch(`${API_BASE_URL}/api/auth/logout`, {
     method: "POST",
     credentials: "include",
@@ -61,16 +61,5 @@ export async function signOut() {
   }
 }
 
-export async function saveMyHotel(formData: FormData) {
-  const response = await fetch(`${API_BASE_URL}/api/my-hotels`, {
-    method: "POST",
-    credentials: "include",
-    body: formData,
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to add the hotel");
-  }
-
-  return await response.json();
-}
+const authService = { register, signIn, validateToken, signOut };
+export default authService;

@@ -1,14 +1,14 @@
 import { useMutation } from "react-query";
 
+import myHotelsService from "../services/my-hotels";
 import { useAppContext } from "../contexts/AppContext";
-import * as apiClient from "../api-client";
 
 import ManageHotelForm from "../forms/ManageHotelForm/ManageHotelForm";
 
 export default function AddHotel() {
   const { showToast } = useAppContext();
 
-  const { mutate, isLoading } = useMutation(apiClient.saveMyHotel, {
+  const { mutate, isLoading } = useMutation(myHotelsService.saveMyHotel, {
     onSuccess: () => {
       showToast({ message: "Hotel saved!", type: "SUCCESS" });
     },

@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { useMutation, useQueryClient } from "react-query";
-import * as apiClient from "../api-client";
+
+import authService from "../services/auth";
 import { useAppContext } from "../contexts/AppContext";
 
 type SignOutButtonProps = {
@@ -12,7 +13,7 @@ export default function SignOutButton({ children, className }: SignOutButtonProp
   const { showToast } = useAppContext();
   const queryClient = useQueryClient();
 
-  const mutation = useMutation(apiClient.signOut, {
+  const mutation = useMutation(authService.signOut, {
     onSuccess: async () => {
       await queryClient.invalidateQueries("validateToken");
       showToast({ message: "Signed out", type: "SUCCESS" });
