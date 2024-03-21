@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 
-import Hotel, { HotelType } from "../../models/hotel";
+import Hotel from "../../models/hotel";
+import { HotelType } from "../../shared/types";
 import * as services from "./my-hotels.services";
 
 export const createHotel = async (req: Request, res: Response) => {
