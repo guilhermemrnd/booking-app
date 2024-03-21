@@ -1,6 +1,8 @@
+import { HotelType } from "../../../backend/src/models/hotel";
+
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
-export async function saveMyHotel(formData: FormData) {
+async function saveMyHotel(formData: FormData) {
   const response = await fetch(`${API_BASE_URL}/api/my-hotels`, {
     method: "POST",
     credentials: "include",
@@ -14,5 +16,17 @@ export async function saveMyHotel(formData: FormData) {
   return await response.json();
 }
 
-const myHotelsService = { saveMyHotel };
+async function fetchMyHotels(): Promise<HotelType[]> {
+  const response = await fetch(`${API_BASE_URL}/api/my-hotels`, {
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Error fetching hotels");
+  }
+
+  return await response.json();
+}
+
+const myHotelsService = { saveMyHotel, fetchMyHotels };
 export default myHotelsService;
