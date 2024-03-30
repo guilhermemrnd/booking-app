@@ -1,4 +1,4 @@
-import { HotelSearchResponse } from "../../../backend/src/shared/types";
+import { HotelSearchResponse, HotelType } from "../../../backend/src/shared/types";
 
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
@@ -20,9 +20,7 @@ const searchHotels = async (searchParams: SearchParams): Promise<HotelSearchResp
   const queryParams = new URLSearchParams();
   Object.keys(searchParams).forEach((key) => {
     if (Array.isArray(searchParams[key])) {
-      return searchParams[key].forEach((value: string) => (
-        queryParams.append(key, value)
-      ))
+      return searchParams[key].forEach((value: string) => queryParams.append(key, value));
     }
     queryParams.append(key, searchParams[key] || "");
   });
@@ -36,5 +34,14 @@ const searchHotels = async (searchParams: SearchParams): Promise<HotelSearchResp
   return await response.json();
 };
 
-const hotelsService = { searchHotels };
+const getHotelById = async (hotelId: string): Promise<HotelType> => {
+  const response = await fetch(`${API_BASE_URL}/api/hotels/${hotelId}`);
+  if (!response.ok) {
+    throw new Error("Error fetching hotel by ID");
+  }
+
+  return await response.json();
+};
+
+const hotelsService = { searchHotels, getHotelById };
 export default hotelsService;
