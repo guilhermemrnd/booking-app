@@ -3,6 +3,24 @@ import { Request, Response } from "express";
 import Hotel from "../../models/hotel";
 import { HotelSearchResponse } from "../../shared/types";
 import { SearchHotelsQuery } from "./hotels.types";
+import { validationResult } from "express-validator";
+
+export const getHotelById = async (req: Request, res: Response) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ message: errors.array() });
+  }
+
+  const id = req.params.id.toString();
+
+  try {
+    const hotel = await Hotel.findById(id);
+    res.json(hotel);
+  } catch (err) {
+    console.error("Error fetching hotel by id: ", err);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};
 
 export const searchHotels = async (req: Request, res: Response) => {
   try {
