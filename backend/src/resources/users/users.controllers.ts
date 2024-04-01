@@ -3,9 +3,25 @@ import { validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
 
 import * as services from "./users.services";
-import { UserType } from "../../models/user";
+import User from "../../models/user";
+import { UserType } from "../../shared/types";
 
 const ONE_DAY = 24 * 60 * 60 * 1000;
+
+export const getUserDetails = async (req: Request, res: Response) => {
+  const userId = req.userId;
+
+  try {
+    const user = await User.findById(userId).select("-password")
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+    res.json(user)
+  } catch (err) {
+    console.error("Error fetching user details: ", err);
+    res.status(500).json({ message: "Something went wrong" })
+  }
+}
 
 export const registerUser = async (req: Request, res: Response) => {
   const errors = validationResult(req);

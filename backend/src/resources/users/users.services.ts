@@ -1,4 +1,5 @@
-import User, { UserType } from "../../models/user"
+import User from "../../models/user"
+import { UserType } from "../../shared/types";
 
 export const registerUser = async (userData: UserType) => {
   let user = await User.findOne({ email: userData.email });
