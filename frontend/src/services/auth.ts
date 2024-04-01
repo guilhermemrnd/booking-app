@@ -1,3 +1,4 @@
+import { UserType } from "../../../backend/src/shared/types";
 import { RegisterFormData } from "../pages/Register";
 import { SignInFormData } from "../pages/SignIn";
 
@@ -18,6 +19,18 @@ async function register(formData: RegisterFormData) {
   if (!response.ok) {
     throw new Error(body.message);
   }
+}
+
+async function getCurrentUser(): Promise<UserType> {
+  const response = await fetch(`${API_BASE_URL}/api/users/me`, {
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Error fetching user");
+  }
+
+  return await response.json();
 }
 
 async function signIn(formData: SignInFormData) {
@@ -61,5 +74,5 @@ async function signOut() {
   }
 }
 
-const authService = { register, signIn, validateToken, signOut };
+const authService = { register, getCurrentUser, signIn, validateToken, signOut };
 export default authService;

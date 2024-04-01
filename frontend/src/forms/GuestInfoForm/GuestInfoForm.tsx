@@ -70,7 +70,7 @@ export default function GuestInfoForm({ hotelId, pricePerNight }: Props) {
 
   return (
     <div className="flex flex-col gap-4 bg-blue-200 p-4">
-      <h3 className="text-md font-bold">${pricePerNight}</h3>
+      <h3 className="text-md font-bold">${pricePerNight} per night</h3>
       <form onSubmit={isLoggedIn ? handleSubmit(onSubmit) : handleSubmit(onSignInClick)}>
         <div className="grid grid-cols-1 items-center gap-4">
           <div>
@@ -97,7 +97,7 @@ export default function GuestInfoForm({ hotelId, pricePerNight }: Props) {
               selectsStart
               startDate={checkOut}
               endDate={checkOut}
-              minDate={minDate}
+              minDate={checkIn}
               maxDate={maxDate}
               placeholderText="Check-out Date"
               className="min-w-full bg-white p-2  focus:outline-none"
