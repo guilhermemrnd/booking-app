@@ -22,6 +22,7 @@ export default function SearchBar() {
   };
 
   const minDate = new Date();
+  minDate.setHours(0, 0, 0, 0);
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() + 1);
 
@@ -69,6 +70,7 @@ export default function SearchBar() {
         <DatePicker
           value={[checkIn, checkOut]}
           onChange={(_, options) => {
+            console.log({ options });
             setCheckIn(new Date(options.validatedValue[0]));
             setCheckOut(new Date(options.validatedValue[1]));
           }}

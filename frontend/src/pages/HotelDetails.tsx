@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { AiFillStar } from "react-icons/ai";
 
 import hotelsService from "../services/hotels";
-import GuestInfoForm from "../forms/GuestInfoForm";
+import GuestInfoForm from "../forms/GuestInfoForm/GuestInfoForm";
 
 export default function HotelDetail() {
   const { hotelId } = useParams();
