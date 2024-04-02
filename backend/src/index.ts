@@ -10,6 +10,7 @@ import userRoutes from "./resources/users/users.routes";
 import authRoutes from "./resources/auth/auth.routes";
 import myHotelRoutes from "./resources/my-hotels/my-hotels.routes";
 import hotelsRoutes from "./resources/hotels/hotels.routes";
+import myBookingsRoutes from "./resources/my-bookings/my-bookings.routes";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -36,6 +37,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/my-hotels", myHotelRoutes);
 app.use("/api/hotels", hotelsRoutes);
+app.use("/api/my-bookings", myBookingsRoutes);
 
 app.get("*", async (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
