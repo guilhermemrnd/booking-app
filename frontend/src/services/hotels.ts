@@ -39,6 +39,14 @@ const searchHotels = async (searchParams: SearchParams): Promise<HotelSearchResp
   return await response.json();
 };
 
+const getHotels = async (): Promise<HotelType[]> => {
+  const response = await fetch(`${API_BASE_URL}/api/hotels`);
+  if (!response.ok) {
+    throw new Error("Error fetching hotels");
+  }
+  return response.json();
+};
+
 const getHotelById = async (hotelId: string): Promise<HotelType> => {
   const response = await fetch(`${API_BASE_URL}/api/hotels/${hotelId}`);
   if (!response.ok) {
@@ -81,6 +89,7 @@ const createRoomBooking = async (formData: BookingForm) => {
 
 const hotelsService = {
   searchHotels,
+  getHotels,
   getHotelById,
   createPaymentIntent,
   createRoomBooking,
