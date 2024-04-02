@@ -5,6 +5,7 @@ import { useAppContext } from "./contexts/AppContext";
 import Layout from "./layouts/Layout";
 import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
+import MyBookings from "./pages/MyBookings";
 import MyHotels from "./pages/MyHotels";
 import AddHotel from "./pages/AddHotel";
 import EditHotel from "./pages/EditHotel";
@@ -54,6 +55,14 @@ export default function App() {
 
         {isLoggedIn && (
           <>
+            <Route
+              path="my-bookings"
+              element={
+                <Layout>
+                  <MyBookings />
+                </Layout>
+              }
+            />
             <Route
               path="my-hotels"
               element={
