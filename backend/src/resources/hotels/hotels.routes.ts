@@ -7,6 +7,7 @@ import verifyToken from "../../middleware/auth";
 const router = express.Router();
 
 router.get("/search", controllers.searchHotels);
+router.get("/", controllers.getHotels)
 router.get("/:id", getHotelByIdValidator, controllers.getHotelById);
 router.post("/:hotelId/bookings", verifyToken, controllers.createBooking);
 router.post(

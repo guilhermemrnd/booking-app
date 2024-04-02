@@ -3,6 +3,7 @@ import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router-d
 import { useAppContext } from "./contexts/AppContext";
 
 import Layout from "./layouts/Layout";
+import Home from "./pages/Home";
 import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
 import MyBookings from "./pages/MyBookings";
@@ -19,7 +20,14 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Layout>Home Page</Layout>} />
+        <Route
+          path="/"
+          element={
+            <Layout>
+              <Home />
+            </Layout>
+          }
+        />
         <Route
           path="/register"
           element={
