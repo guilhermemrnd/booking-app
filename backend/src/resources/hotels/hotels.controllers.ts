@@ -29,6 +29,16 @@ export const getHotelById = async (req: Request, res: Response) => {
   }
 };
 
+export const getHotels = async (req: Request, res: Response) => {
+  try {
+    const hotels = await Hotel.find().sort("-lastUpdated");
+    res.send(hotels);
+  } catch (err) {
+    console.error("Error fetching hotels: ", err);
+    res.status(500).json({ message: "Something went wrong" })
+  }
+}
+
 export const searchHotels = async (req: Request, res: Response) => {
   try {
     const query = constructSearchQuery(req.query as any);
