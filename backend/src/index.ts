@@ -43,6 +43,8 @@ app.get("*", async (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
 });
 
-app.listen(7000, () => {
-  console.log("server running on localhost:7000");
+const PORT = parseInt(process.env.PORT || "7000");
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`server running on localhost:${PORT}`);
 });
